@@ -44,7 +44,7 @@ const Navbar = () => {
               {menu}
             </ul>
           </div>
-          <a class="btn btn-ghost normal-case text-xl">daisyUI</a>
+          <a class="btn btn-ghost normal-case text-xl">MMH Tools</a>
         </div>
         <div class="navbar-center hidden lg:flex">
           <ul class="menu menu-horizontal p-0">{menu}</ul>
