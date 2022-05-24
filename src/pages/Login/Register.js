@@ -1,7 +1,11 @@
 import React from "react";
-import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from "react-firebase-hooks/auth";
+import {
+  useCreateUserWithEmailAndPassword,
+  useSignInWithGoogle,
+  useUpdateProfile,
+} from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
 import Loading from "../Shared/Loading";
 
@@ -16,11 +20,13 @@ const Register = () => {
     formState: { errors },
   } = useForm();
   const navigate = useNavigate();
+  const location = useLocation();
 
-  let loginError;
+  let from = location.state?.from?.pathname || "/";
+  let registerError;
 
   if (error || gError || updateError) {
-    loginError = (
+    registerError = (
       <div className="bg-red-100 mb-3 rounded-lg">
         <p className="text-red-500 py-4 pl-2">
           Error: {error?.message || gError?.message || updateError.message}
@@ -32,14 +38,13 @@ const Register = () => {
     return <Loading></Loading>;
   }
   if (user || gUser) {
-    console.log(user || gUser);
+    navigate(from, { replace: true });
   }
 
   const onSubmit = async (data) => {
     await createUserWithEmailAndPassword(data.email, data.password);
     await updateProfile({ displayName: data.name });
     alert("Updated profile");
-    navigate("/appointment");
   };
 
   return (
@@ -137,7 +142,7 @@ const Register = () => {
                 )}
               </label>
             </div>
-            {loginError}
+            {registerError}
             <input
               type="submit"
               value={"Register"}
