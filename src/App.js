@@ -5,6 +5,8 @@ import Navbar from "./pages/Shared/Navbar";
 import Home from "./pages/Home/Home";
 import Footer from "./pages/Shared/Footer";
 import Purchase from "./pages/Products/Purchase ";
+import Login from "./pages/Login/Login";
+import Register from "./pages/Login/Register";
 
 function App() {
   return (
@@ -14,6 +16,8 @@ function App() {
         <Route path="/" element={<Home></Home>}></Route>
         <Route path="/home" element={<Home></Home>}></Route>
         <Route path="/purchase" element={<Purchase></Purchase>}></Route>
+        <Route path="/login" element={<Login></Login>}></Route>
+        <Route path="/register" element={<Register></Register>}></Route>
         <Route path="/*" element={<Home></Home>}></Route>
       </Routes>
       {/* Footer */}

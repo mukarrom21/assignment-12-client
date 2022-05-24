@@ -3,7 +3,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Live site Link:
-click [MMH Tools](https://github.com/facebook/create-react-app) to go to live site or copy the url: https://github.com/facebook/create-react-app
+click [MMH Tools](https://mmh-assignment-12.web.app/) to go to live site or copy the url: https://mmh-assignment-12.web.app
 
 
 ### What we have used in this website:
@@ -13,3 +13,4 @@ click [MMH Tools](https://github.com/facebook/create-react-app) to go to live si
 * [React Router](https://reactrouter.com/) for routing.
 * [Google Firebase](https://firebase.google.com/) for authentication.
 * [Firebase hooks](https://github.com/CSFrequency/react-firebase-hooks) for as hook for firebase.
+* [React hook form](https://react-hook-form.com/) for login and registration form.

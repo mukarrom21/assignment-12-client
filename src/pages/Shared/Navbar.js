@@ -50,7 +50,7 @@ const Navbar = () => {
           <ul class="menu menu-horizontal p-0">{menu}</ul>
         </div>
         <div class="navbar-end">
-          <a class="btn btn-primary">Get started</a>
+          <CustomLink to='/login' class="btn btn-primary">Login</CustomLink>
         </div>
       </div>
     </nav>
