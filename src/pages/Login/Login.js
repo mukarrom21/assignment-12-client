@@ -47,7 +47,7 @@ const Login = () => {
 
   // console.log(watch("example")); // watch input value by passing the name of it
   return (
-    <div className="flex justify-center items-center h-[88vh]">
+    <div className="flex justify-center items-center max-h-screen z-10">
       <div className="card w-96 bg-base-100 shadow-xl">
         <div className="card-body">
           <h2 className="text-center text-2xl font-bold mb-5">Login</h2>

@@ -1,43 +1,24 @@
 import React from "react";
+import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
+import Loading from "../Shared/Loading";
 
 const Products = () => {
   const navigate = useNavigate();
-  const ourProducts = [
-    {
-      id: 1,
-      productName: "Lanch",
-      info: "Specially designed double tapered tips slide under the clip and grip the side of the clip, helping prevent damage. Tips are angled 45° providing more leverage for easier clip removal, even in very tight spots. Dual durometer cushioned grips for comfort.",
-      imgURL:
-        "https://cdn11.bigcommerce.com/s-3ihov9f/images/stencil/1280x1280/products/10037/12998/41080_2D9B5A0F36A5B__09340.1588835527.jpg?c=2",
-      minOrder: 100,
-      availabl: 1000,
-      price: 59,
-    },
-    {
-      id: 2,
-      productName: "Lanch",
-      info: "Specially designed double tapered tips slide under the clip and grip the side of the clip, helping prevent damage. Tips are angled 45° providing more leverage for easier clip removal, even in very tight spots. Dual durometer cushioned grips for comfort.",
-      imgURL:
-        "https://cdn11.bigcommerce.com/s-3ihov9f/images/stencil/1280x1280/products/10037/12998/41080_2D9B5A0F36A5B__09340.1588835527.jpg?c=2",
-      minOrder: 100,
-      availabl: 1000,
-      price: 59,
-    },
-    {
-      id: 3,
-      productName: "41080 TRIM CLIP PLIERS 45 DEGREE",
-      info: "Specially designed double tapered tips slide under the clip and grip the side of the clip, helping prevent damage. Tips are angled 45° providing more leverage for easier clip removal, even in very tight spots. Dual durometer cushioned grips for comfort.",
-      imgURL:
-        "https://cdn11.bigcommerce.com/s-3ihov9f/images/stencil/1280x1280/products/10037/12998/41080_2D9B5A0F36A5B__09340.1588835527.jpg?c=2",
-      minOrder: 100,
-      availabl: 1000,
-      price: 59,
-    },
-  ];
+  const {
+    isLoading,
+    error,
+    data: items,
+  } = useQuery("products", () =>
+    fetch("http://localhost:5000/products").then((res) => res.json())
+  );
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
+
   return (
     <div className="flex flex-wrap justify-center gap-4 mt-10">
-      {ourProducts.map((item) => (
+      {items.map((item) => (
         <div class="card card-compact w-96 bg-base-100 shadow-xl">
           <figure>
             <img src={item.imgURL} alt="Shoes" />
@@ -51,7 +32,12 @@ const Products = () => {
               <p>Price: {item.price}</p>
             </div>
             <div class="">
-              <button onClick={()=>navigate('/purchase')} class="btn btn-primary w-full">Buy Now</button>
+              <button
+                onClick={() => navigate("/purchase")}
+                class="btn btn-primary w-full"
+              >
+                Buy Now
+              </button>
             </div>
           </div>
         </div>
