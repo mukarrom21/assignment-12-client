@@ -15,8 +15,13 @@ const Navbar = () => {
         <CustomLink to={"/blog"}>Blog</CustomLink>
       </li>
       <li>
-        <CustomLink to={"/about"}>About</CustomLink>
+        <CustomLink to={"/portfolio"}>My Portfolio</CustomLink>
       </li>
+      {user && (
+        <li>
+          <CustomLink to={"/dashboard"}>Dashboard</CustomLink>
+        </li>
+      )}
     </>
   );
   return (
