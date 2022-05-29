@@ -13,6 +13,7 @@ import NotFound from "./pages/Shared/NotFound";
 import Portfolio from "./pages/Portfolio/Portfolio";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import AddProduct from "./pages/Dashboard/AddProduct";
+import MyOrders from "./pages/Dashboard/MyOrders";
 
 function App() {
   return (
@@ -30,8 +31,16 @@ function App() {
           }
         ></Route>
         {/* Dashboard */}
-        <Route path="/Dashboard" element={<RequireAuth><Dashboard/></RequireAuth>}>
-          <Route index element={<Dashboard/>}></Route>
+        <Route
+          path="dashboard"
+          element={
+            <RequireAuth>
+              <Dashboard />
+            </RequireAuth>
+          }
+        >
+          <Route index element={<MyOrders></MyOrders>}></Route>
+          <Route path="add_product" element={<AddProduct></AddProduct>}></Route>
         </Route>
         {/* --------- daahboard ------------- */}
         <Route path="/blog" element={<Blog></Blog>}></Route>
