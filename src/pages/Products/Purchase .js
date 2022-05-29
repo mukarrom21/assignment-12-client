@@ -10,17 +10,38 @@ const Purchase = () => {
   // const navigate = useNavigate();
   const { productId } = useParams();
   const [quantity, setQuantity] = useState(0);
-  const [minimum, setMinimum] = useState(false);
+  const [min, setMin] = useState(true);
   const [product] = useProductDetail(productId);
-
   const { _id, productName, info, imgURL, minOrder, availabl, price } = product;
+
   useEffect(() => {
     setQuantity(minOrder);
   }, [minOrder]);
 
+  useEffect(() => {
+    if (quantity < minOrder) {
+      setMin(false);
+    } else if (quantity > availabl) {
+      setMin(false);
+    } else {
+      setMin(true);
+    }
+  }, [minOrder, quantity, availabl]);
+  let mmh;
   if (quantity < minOrder) {
-    return setMinimum;
+    mmh = (
+      <p className="text-red-700 text-center">
+        Sorry! you cannot order less than {minOrder}
+      </p>
+    );
+  } else if (quantity > availabl) {
+    mmh = (
+      <p className="text-red-700 text-center">
+        Sorry! you cannot order greater than {availabl}
+      </p>
+    );
   }
+
   return (
     <div>
       {/* ------------------- */}
@@ -30,11 +51,7 @@ const Purchase = () => {
             <div className="flex justify-center items-center lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded">
               <img alt="ecommerce" className="" src={imgURL} />
             </div>
-
             <div className="lg:w-1/2 w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
-              {/* <h2 className="text-sm title-font text-gray-500 tracking-widest">
-                seller
-              </h2> */}
               <h1 className="text-gray-900 text-3xl title-font font-medium mb-4">
                 {productName}
               </h1>
@@ -65,7 +82,7 @@ const Purchase = () => {
               <div className="flex border-t border-gray-200 py-2">
                 <span className="text-gray-500">quantity</span>
                 <button
-                  onClick={() => setQuantity(parseInt(quantity) - 1)}
+                  onClick={() => setQuantity(parseInt(quantity) - 10)}
                   className="btn btn-xs ml-auto font-extrabold w-11"
                 >
                   <FaMinus />
@@ -75,15 +92,17 @@ const Purchase = () => {
                   type="number"
                   name="quantity"
                   value={quantity}
+                  readOnly
                 />
                 {/* <span className="ml-auto text-gray-900">{quantity}</span> */}
                 <button
-                  onClick={() => setQuantity(parseInt(quantity) + 1)}
+                  onClick={() => setQuantity(parseInt(quantity) + 10)}
                   className="btn btn-xs ml-auto text-white w-11"
                 >
                   <FaPlus />
                 </button>
               </div>
+              <p className="font-bold">{mmh}</p>
               {/* --------------- Form --------------- */}
               <form class="space-y-6 my-10" data-bitwarden-watching="1">
                 {/* Full Name */}
@@ -161,7 +180,6 @@ const Purchase = () => {
                       id="phone"
                       name="phone"
                       placeholder="01x-xx-xxx-xxx"
-                      pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
                       required
                       class="block w-full px-5 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
                     />
@@ -169,11 +187,7 @@ const Purchase = () => {
                 </div>
                 {/* Submit */}
                 <div>
-                  <button
-                    disabled={minimum}
-                    type="submit"
-                    class="flex items-center justify-center w-full px-10 py-4 text-base font-medium text-center text-white transition duration-500 ease-in-out transform bg-blue-600 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                  >
+                  <button disabled={!min} type="submit" class="btn w-full">
                     Buy Now
                   </button>
                 </div>
