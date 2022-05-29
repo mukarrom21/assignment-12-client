@@ -11,6 +11,8 @@ import RequireAuth from "./pages/Login/RequireAuth";
 import Blog from "./pages/Blog/Blog";
 import NotFound from "./pages/Shared/NotFound";
 import Portfolio from "./pages/Portfolio/Portfolio";
+import Dashboard from "./pages/Dashboard/Dashboard";
+import AddProduct from "./pages/Dashboard/AddProduct";
 
 function App() {
   return (
@@ -27,6 +29,11 @@ function App() {
             </RequireAuth>
           }
         ></Route>
+        {/* Dashboard */}
+        <Route path="/Dashboard" element={<RequireAuth><Dashboard/></RequireAuth>}>
+          <Route index element={<Dashboard/>}></Route>
+        </Route>
+        {/* --------- daahboard ------------- */}
         <Route path="/blog" element={<Blog></Blog>}></Route>
         <Route path="/login" element={<Login></Login>}></Route>
         <Route path="/register" element={<Register></Register>}></Route>

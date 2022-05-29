@@ -17,6 +17,7 @@ const Navbar = () => {
       <li>
         <CustomLink to={"/portfolio"}>My Portfolio</CustomLink>
       </li>
+      
       {user && (
         <li>
           <CustomLink to={"/dashboard"}>Dashboard</CustomLink>
