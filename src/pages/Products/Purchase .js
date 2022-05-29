@@ -1,19 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useParams } from "react-router";
 import auth from "../../firebase.init";
 import useProductDetail from "../../hooks/useProductDetail";
-import { FaMinus, FaMinusCircle, FaPlus, FaPlusCircle } from 'react-icons/fa';
-
+import { FaMinus, FaPlus } from "react-icons/fa";
 
 const Purchase = () => {
   const [user] = useAuthState(auth);
   // const navigate = useNavigate();
   const { productId } = useParams();
-  const [quantity, setQuantity] = useState(0)
+  const [quantity, setQuantity] = useState(0);
+  const [minimum, setMinimum] = useState(false);
   const [product] = useProductDetail(productId);
-  const { _id, productName, info, imgURL, minOrder, availabl, price } = product;
 
+  const { _id, productName, info, imgURL, minOrder, availabl, price } = product;
+  useEffect(() => {
+    setQuantity(minOrder);
+  }, [minOrder]);
+
+  if (quantity < minOrder) {
+    return setMinimum;
+  }
   return (
     <div>
       {/* ------------------- */}
@@ -57,9 +64,25 @@ const Purchase = () => {
               {/* quantity */}
               <div className="flex border-t border-gray-200 py-2">
                 <span className="text-gray-500">quantity</span>
-                <button onClick={()=>setQuantity(parseInt(quantity)-1)} className="btn btn-xs ml-auto font-extrabold w-11"><FaMinus/></button>
-                <span className="ml-auto text-gray-900">{quantity}</span>
-                <button onClick={()=>setQuantity(parseInt(quantity)+1)} className="btn btn-xs ml-auto text-white w-11"><FaPlus/></button>
+                <button
+                  onClick={() => setQuantity(parseInt(quantity) - 1)}
+                  className="btn btn-xs ml-auto font-extrabold w-11"
+                >
+                  <FaMinus />
+                </button>
+                <input
+                  className="ml-auto rounded-full border border-gray-200 text-center"
+                  type="number"
+                  name="quantity"
+                  value={quantity}
+                />
+                {/* <span className="ml-auto text-gray-900">{quantity}</span> */}
+                <button
+                  onClick={() => setQuantity(parseInt(quantity) + 1)}
+                  className="btn btn-xs ml-auto text-white w-11"
+                >
+                  <FaPlus />
+                </button>
               </div>
               {/* --------------- Form --------------- */}
               <form class="space-y-6 my-10" data-bitwarden-watching="1">
@@ -144,42 +167,10 @@ const Purchase = () => {
                     />
                   </div>
                 </div>
-                {/* Product quantity */}
-                <div>
-                  <label
-                    for="email"
-                    class="block text-sm font-medium text-neutral-600"
-                  >
-                    Quantity
-                  </label>
-                  <div class="mt-1">
-                    <label class="input-group">
-                      <button
-                        type="button"
-                        className="btn font-extrabold text-2xl"
-                      >
-                        -
-                      </button>
-                      <input
-                        type="number"
-                        name="quantity"
-                        class="input input-bordered w-full"
-                      />
-
-                      <button
-                        type="button"
-                        className="btn font-extrabold text-2xl"
-                      >
-                        +
-                      </button>
-                    </label>
-
-                    {/* ----------- */}
-                  </div>
-                </div>
                 {/* Submit */}
                 <div>
                   <button
+                    disabled={minimum}
                     type="submit"
                     class="flex items-center justify-center w-full px-10 py-4 text-base font-medium text-center text-white transition duration-500 ease-in-out transform bg-blue-600 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                   >
@@ -189,16 +180,6 @@ const Purchase = () => {
               </form>
             </div>
           </div>
-
-          <div class="mt-6 md:w-8/12 lg:w-6/12 mx-auto shadow"></div>
-
-          {/* button */}
-          {/* <button
-            onClick={() => navigate("/manageinv")}
-            class="w-full mt-8 bg-indigo-500 text-white px-32 py-3 rounded-md text-1xl font-medium hover:bg-blue-700 transition duration-300"
-          >
-            Manage Inventories
-          </button> */}
         </div>
       </section>
       {/* ----------------------- */}
