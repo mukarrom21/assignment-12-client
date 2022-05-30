@@ -51,9 +51,8 @@ const Purchase = () => {
       address: event.target.address.value,
       email: user.email,
       phone: event.target.phone.value,
-      productId: _id,
-      productName: productName,
       orderQuantity: quantity,
+      product,
     };
     
     fetch("https://mmh12.herokuapp.com/orders", {
