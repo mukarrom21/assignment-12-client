@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { FaMinus, FaPlus } from "react-icons/fa";
 import { useParams } from "react-router";
 import auth from "../../firebase.init";
 import useProductDetail from "../../hooks/useProductDetail";
-import { FaMinus, FaPlus } from "react-icons/fa";
 
 const Purchase = () => {
   const [user] = useAuthState(auth);
@@ -12,7 +12,8 @@ const Purchase = () => {
   const [quantity, setQuantity] = useState(0);
   const [min, setMin] = useState(true);
   const [product] = useProductDetail(productId);
-  const { _id, productName, info, imgURL, minOrder, availabl, price } = product;
+  const { _id, productName, info, imgURL, minOrder, available, price } =
+    product;
 
   useEffect(() => {
     setQuantity(minOrder);
@@ -21,26 +22,54 @@ const Purchase = () => {
   useEffect(() => {
     if (quantity < minOrder) {
       setMin(false);
-    } else if (quantity > availabl) {
+    } else if (quantity > available) {
       setMin(false);
     } else {
       setMin(true);
     }
-  }, [minOrder, quantity, availabl]);
-  let mmh;
+  }, [minOrder, quantity, available]);
+  let error;
   if (quantity < minOrder) {
-    mmh = (
+    error = (
       <p className="text-red-700 text-center">
         Sorry! you cannot order less than {minOrder}
       </p>
     );
-  } else if (quantity > availabl) {
-    mmh = (
+  } else if (parseFloat(quantity) > parseFloat(available)) {
+    error = (
       <p className="text-red-700 text-center">
-        Sorry! you cannot order greater than {availabl}
+        Sorry! you cannot order greater than {available}
       </p>
     );
   }
+
+  // Handle onsubmit
+  const handleOnsubmit = (event) => {
+    event.preventDefault();
+    const userInfo = {
+      name: user.displayName,
+      address: event.target.address.value,
+      email: user.email,
+      phone: event.target.phone.value,
+      productId: _id,
+      productName: productName,
+      orderQuantity: quantity,
+    };
+    
+    fetch("https://mmh12.herokuapp.com/orders", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(userInfo),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("success", data);
+        // toast("product added success");
+        event.target.reset();
+      });
+  };
 
   return (
     <div>
@@ -67,7 +96,7 @@ const Purchase = () => {
               </div>
               <div className="flex border-t border-gray-200 py-2">
                 <span className="text-gray-500">available</span>
-                <span className="ml-auto text-gray-900">{availabl}</span>
+                <span className="ml-auto text-gray-900">{available}</span>
               </div>
               <div className="flex border-t border-gray-200 py-2">
                 <span className="text-gray-500">Minimum Order</span>
@@ -102,17 +131,20 @@ const Purchase = () => {
                   <FaPlus />
                 </button>
               </div>
-              <p className="font-bold">{mmh}</p>
+              <p className="font-bold">{error}</p>
               {/* --------------- Form --------------- */}
-              <form class="space-y-6 my-10" data-bitwarden-watching="1">
+              <form
+                class="space-y-6 my-10"
+                data-bitwarden-watching="1"
+                onSubmit={handleOnsubmit}
+              >
                 {/* Full Name */}
                 <div>
                   <label
                     for="name"
                     class="block text-sm font-medium text-neutral-600"
                   >
-                    {" "}
-                    Full Name{" "}
+                    Full Name
                   </label>
                   <div class="mt-1">
                     <input
@@ -132,8 +164,7 @@ const Purchase = () => {
                     for="email"
                     class="block text-sm font-medium text-neutral-600"
                   >
-                    {" "}
-                    Your Email{" "}
+                    Your Email
                   </label>
                   <div class="mt-1">
                     <input
@@ -151,8 +182,7 @@ const Purchase = () => {
                     for="address"
                     class="block text-sm font-medium text-neutral-600"
                   >
-                    {" "}
-                    Your Address{" "}
+                    Your Address
                   </label>
                   <div class="mt-1">
                     <input
@@ -171,8 +201,7 @@ const Purchase = () => {
                     for="phone"
                     class="block text-sm font-medium text-neutral-600"
                   >
-                    {" "}
-                    Phone Number{" "}
+                    Phone Number
                   </label>
                   <div class="mt-1">
                     <input
