@@ -133,19 +133,19 @@ const Purchase = () => {
               <p className="font-bold">{error}</p>
               {/* --------------- Form --------------- */}
               <form
-                class="space-y-6 my-10"
+                className="space-y-6 my-10"
                 data-bitwarden-watching="1"
                 onSubmit={handleOnsubmit}
               >
                 {/* Full Name */}
                 <div>
                   <label
-                    for="name"
-                    class="block text-sm font-medium text-neutral-600"
+                    htmlFor="name"
+                    className="block text-sm font-medium text-neutral-600"
                   >
                     Full Name
                   </label>
-                  <div class="mt-1">
+                  <div className="mt-1">
                     <input
                       name="name"
                       type="text"
@@ -153,69 +153,69 @@ const Purchase = () => {
                       // required=""
                       value={user?.displayName}
                       disabled
-                      class="block w-full px-5 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
+                      className="block w-full px-5 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
                     />
                   </div>
                 </div>
                 {/* Email */}
                 <div>
                   <label
-                    for="email"
-                    class="block text-sm font-medium text-neutral-600"
+                    htmlFor="email"
+                    className="block text-sm font-medium text-neutral-600"
                   >
                     Your Email
                   </label>
-                  <div class="mt-1">
+                  <div className="mt-1">
                     <input
                       name="email"
                       type="text"
                       value={user?.email}
                       disabled
-                      class="block w-full px-5 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
+                      className="block w-full px-5 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
                     />
                   </div>
                 </div>
                 {/* Your Address */}
                 <div>
                   <label
-                    for="address"
-                    class="block text-sm font-medium text-neutral-600"
+                    htmlFor="address"
+                    className="block text-sm font-medium text-neutral-600"
                   >
                     Your Address
                   </label>
-                  <div class="mt-1">
+                  <div className="mt-1">
                     <input
                       name="address"
                       type="text"
                       autocomplete="true"
                       // required=""
                       placeholder="You Address"
-                      class="block w-full px-5 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
+                      className="block w-full px-5 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
                     />
                   </div>
                 </div>
                 {/* Your Phone Number */}
                 <div>
                   <label
-                    for="phone"
-                    class="block text-sm font-medium text-neutral-600"
+                    htmlFor="phone"
+                    className="block text-sm font-medium text-neutral-600"
                   >
                     Phone Number
                   </label>
-                  <div class="mt-1">
+                  <div className="mt-1">
                     <input
                       type="tel"
                       id="phone"
                       name="phone"
                       placeholder="01x-xx-xxx-xxx"
                       required
-                      class="block w-full px-5 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
+                      className="block w-full px-5 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
                     />
                   </div>
                 </div>
                 {/* Submit */}
                 <div>
-                  <button disabled={!min} type="submit" class="btn w-full">
+                  <button disabled={!min} type="submit" className="btn w-full">
                     Buy Now
                   </button>
                 </div>

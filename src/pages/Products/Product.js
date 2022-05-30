@@ -10,22 +10,22 @@ const Product = ({ item }) => {
   };
 
   return (
-    <div class="card card-compact w-96 bg-base-100 shadow-xl">
+    <div className="card card-compact w-96 bg-base-100 shadow-xl">
       <figure>
         <img className="max-h-44" src={imgURL} alt="Shoes" />
       </figure>
-      <div class="card-body">
-        <h2 class="card-title">{productName}</h2>
+      <div className="card-body">
+        <h2 className="card-title">{productName}</h2>
         <p>{info}</p>
         <div className="flex">
           <p className="font-bold">Minimum order: {minOrder}</p>
           <p className="font-bold">available: {available}</p>
           <p className="font-bold">Price: ${price}</p>
         </div>
-        <div class="">
+        <div className="">
           <button
             onClick={() => handleBuy(_id)}
-            class="btn btn-primary w-full"
+            className="btn btn-primary w-full"
           >
             Buy Now
           </button>
@@ -38,22 +38,22 @@ const Product = ({ item }) => {
 export default Product;
 
 /*
-<div class="card card-compact w-96 bg-base-100 shadow-xl">
+<div className="card card-compact w-96 bg-base-100 shadow-xl">
           <figure>
             <img src={item.imgURL} alt="Shoes" />
           </figure>
-          <div class="card-body">
-            <h2 class="card-title">{item.productName}</h2>
+          <div className="card-body">
+            <h2 className="card-title">{item.productName}</h2>
             <p>{item.info}</p>
             <div className="flex">
               <p>Minimum order: {item.minOrder}</p>
               <p>available: {item.availabl}</p>
               <p>Price: {item.price}</p>
             </div>
-            <div class="">
+            <div className="">
               <button
                 onClick={() => navigate("/purchase")}
-                class="btn btn-primary w-full"
+                className="btn btn-primary w-full"
               >
                 Buy Now
               </button>
